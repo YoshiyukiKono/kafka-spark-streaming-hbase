@@ -47,10 +47,12 @@ public class Run {
         // sleep time as milliseconds for each step
         int sleep = RANDOM.nextInt(CONFIG.getGenerator().getRandomRange()) + 10;
 
+System.out.println(sleep);
         RecordBean record;
         while (true) {
             try {
                 record = generate();
+System.out.println(JsonUtils.serialize(record));
                 producer.produce(record.getType().name(), JsonUtils.serialize(record));
 
                 Thread.sleep(sleep);

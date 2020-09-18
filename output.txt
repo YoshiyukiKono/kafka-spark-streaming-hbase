@@ -1,0 +1,196 @@
+2020-09-18 00:16:09 INFO  ProducerConfig:180 - ProducerConfig values: 
+	acks = all
+	batch.size = 16384
+	block.on.buffer.full = false
+	bootstrap.servers = [10.0.0.249:9092]
+	buffer.memory = 33554432
+	client.id = 
+	compression.type = none
+	connections.max.idle.ms = 540000
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 1
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.fetch.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 0
+	retry.backoff.ms = 100
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	timeout.ms = 30000
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2020-09-18 00:16:09 INFO  ProducerConfig:180 - ProducerConfig values: 
+	acks = all
+	batch.size = 16384
+	block.on.buffer.full = false
+	bootstrap.servers = [10.0.0.249:9092]
+	buffer.memory = 33554432
+	client.id = producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 1
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.fetch.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 0
+	retry.backoff.ms = 100
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	timeout.ms = 30000
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2020-09-18 00:16:09 INFO  AppInfoParser:83 - Kafka version : 0.10.1.0
+2020-09-18 00:16:09 INFO  AppInfoParser:84 - Kafka commitId : 3402a74efb23d1d4
+45
+{"type":"oceania","value":294.01422}
+{"type":"asia","value":508.8187}
+{"type":"europe","value":402.07892}
+{"type":"europe","value":563.6999}
+{"type":"africa","value":948.4685}
+{"type":"africa","value":370.89426}
+{"type":"asia","value":499.62534}
+{"type":"north_america","value":844.98047}
+{"type":"africa","value":930.5245}
+{"type":"asia","value":214.30379}
+{"type":"europe","value":470.05463}
+{"type":"asia","value":293.8243}
+{"type":"south_america","value":910.59705}
+{"type":"europe","value":192.07603}
+{"type":"europe","value":315.61917}
+{"type":"asia","value":568.83636}
+{"type":"south_america","value":465.0146}
+{"type":"africa","value":831.9}
+{"type":"oceania","value":607.2423}
+{"type":"africa","value":296.4866}
+{"type":"north_america","value":723.8252}
+{"type":"europe","value":627.1407}
+{"type":"africa","value":229.88254}
+{"type":"asia","value":652.9828}
+{"type":"europe","value":749.1259}
+{"type":"europe","value":471.94214}
+{"type":"north_america","value":618.81146}
+{"type":"africa","value":232.87207}
+{"type":"north_america","value":45.80128}
+{"type":"south_america","value":966.5699}
+{"type":"oceania","value":186.05536}
+{"type":"europe","value":703.6694}
+{"type":"asia","value":834.0955}
+{"type":"africa","value":10.749996}
+{"type":"north_america","value":254.41396}
+{"type":"africa","value":153.03796}
+{"type":"europe","value":972.23395}
+{"type":"europe","value":775.60864}
+{"type":"asia","value":965.88336}
+{"type":"north_america","value":223.52188}
+{"type":"south_america","value":707.3446}
+{"type":"africa","value":98.92309}
+{"type":"europe","value":311.975}
+{"type":"oceania","value":99.56014}
+{"type":"africa","value":754.2244}
+{"type":"africa","value":583.74225}
+{"type":"europe","value":645.33527}
+{"type":"africa","value":162.48471}
+{"type":"europe","value":554.0301}
+{"type":"africa","value":197.03896}
+{"type":"africa","value":775.23694}
+{"type":"asia","value":661.4354}
+{"type":"oceania","value":948.7643}
+{"type":"africa","value":962.9063}
+{"type":"oceania","value":23.92453}
+{"type":"oceania","value":61.597588}
+{"type":"asia","value":922.4664}
+{"type":"north_america","value":423.91336}
+{"type":"europe","value":426.46182}
+{"type":"south_america","value":825.897}
+{"type":"oceania","value":506.30713}
+{"type":"asia","value":904.5855}
+{"type":"north_america","value":593.6438}
+{"type":"north_america","value":262.26337}
+{"type":"north_america","value":422.32288}
+{"type":"europe","value":252.57755}
+{"type":"north_america","value":625.6982}
+{"type":"asia","value":725.7983}
+{"type":"north_america","value":549.31854}
+{"type":"asia","value":655.95844}
+{"type":"asia","value":863.91675}
+{"type":"north_america","value":903.6626}
+{"type":"oceania","value":834.5028}
+{"type":"africa","value":339.12878}
+{"type":"africa","value":198.02016}
+{"type":"north_america","value":130.22244}
+{"type":"europe","value":845.7115}
+{"type":"asia","value":425.2432}
+{"type":"asia","value":108.974815}
+{"type":"oceania","value":680.97144}
+{"type":"oceania","value":761.612}
+{"type":"south_america","value":19.611061}
+{"type":"north_america","value":620.14307}
+{"type":"south_america","value":775.9725}
+{"type":"north_america","value":231.07314}
+{"type":"north_america","value":616.402}
+{"type":"europe","value":854.06384}
+2020-09-18 01:42:36 INFO  Run:42 - Generator application stopping ...
+2020-09-18 01:42:36 INFO  KafkaProducer:685 - Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
