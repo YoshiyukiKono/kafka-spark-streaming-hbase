@@ -77,16 +77,12 @@ $ java -Dconfig=./config/common.conf -jar streaming/target/spark-streaming-0.1.j
 $ java -Dconfig=./config/common.conf -jar producer/target/kafka-producer-0.1.jar
 ```
 
-3 - Start the web server so you can see the dashboard
+3 - Start the Spark Streaming process,
 
 ```bash
-$ java -Dconfig=./config/common.conf -jar web/target/web-0.1.jar
+spark-submit --master local[*]  --driver-java-options "-Dconfig=./config/common.conf -Dlog4j.configuration=file:log4j.xml" streaming/target/spark-streaming-0.1.jar
 ```
 
 4 - If everything look fine, please enter the dashboard address,
 
-```bash
-open http://localhost:8080 # default value : 8080
-```
 
-![screen](screen.png)
