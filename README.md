@@ -27,6 +27,21 @@ Use Maven as follows for creating jar files, after you clone this repository,
 $ mvn clean package -DskipTests
 ```
 
+### Configuration
+
+Edit `config/common.conf`, and change <Your Kafka Server> to the IP address of your Kafka server (It must be a private IP if you use AWS).
+
+```
+producer {
+  ...
+  topic: "test-default"
+
+  hosts: [
+    "<Your Kafka Server>:9092"
+  ]
+}
+```
+
 ### Usage
 
 Start the Spark streaming service and it'll process events from Kafka topic to HBase,
