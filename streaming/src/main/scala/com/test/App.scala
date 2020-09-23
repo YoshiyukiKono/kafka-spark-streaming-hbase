@@ -21,6 +21,8 @@ import java.io.IOException
 import java.sql.Timestamp
 import java.util.Properties
 
+import java.text.SimpleDateFormat
+
 import com.test.beans.RecordBean
 import com.test.config.ConfigurationFactory
 import com.test.utils.JsonUtils
@@ -40,40 +42,19 @@ import org.apache.hadoop.hbase.spark.HBaseContext
 import org.apache.hadoop.fs.Path
 import org.apache.spark.sql.datasources.hbase._
 import org.apache.spark.{SparkConf, SparkContext}
-//import spark.sqlContext.implicits._
 
 object App {
   private[this] lazy val logger = Logger.getLogger(getClass)
 
   private[this] val config = ConfigurationFactory.load()
 
-case class ContactRecord(
-    rowkey: String,
-    officeAddress: String,
-    officePhone: String,
-    personalName: String,
-    personalPhone: String
-    )
-
-def catalog = s"""{
-    |"table":{"namespace":"default", "name":"Contacts"},
-    |"rowkey":"key",
-    |"columns":{
-    |"rowkey":{"cf":"rowkey", "col":"key", "type":"string"},
-    |"officeAddress":{"cf":"Office", "col":"Address", "type":"string"},
-    |"officePhone":{"cf":"Office", "col":"Phone", "type":"string"},
-    |"personalName":{"cf":"Personal", "col":"Name", "type":"string"},
-    |"personalPhone":{"cf":"Personal", "col":"Phone", "type":"string"}
-    |}
-|}""".stripMargin
-
-case class EventRecord(
+  case class EventRecord(
     rowkey: String,
     market: String,
     rate: String
-    )
+  )
 
-def catalog_event = s"""{
+  def catalog_event = s"""{
     |"table":{"namespace":"default", "name":"events"},
     |"rowkey":"key",
     |"columns":{
@@ -81,7 +62,7 @@ def catalog_event = s"""{
     |"market":{"cf":"cf1", "col":"market", "type":"string"},
     |"rate":{"cf":"cf1", "col":"rate", "type":"string"}
     |}
-|}""".stripMargin
+  |}""".stripMargin
 
 
   /**
@@ -101,16 +82,16 @@ def catalog_event = s"""{
   }
 
   def main(args: Array[String]): Unit = {
-println("-----------------------KONO--------------------")
     val spark = SparkSession.builder
       .appName("spark-kafka-streaming-example")
-//      .master("local[*]")
       .getOrCreate
 
-val sc = spark.sparkContext
-val conf = HBaseConfiguration.create()
-conf.addResource(new Path("/etc/hbase/conf.cloudera.hbase/hbase-site.xml"))
-new HBaseContext(sc, conf)
+    val hbase_config_path = config.getStreaming.getHbaseConfigPath
+
+    val sc = spark.sparkContext
+    val conf = HBaseConfiguration.create()
+    conf.addResource(new Path(hbase_config_path))
+    new HBaseContext(sc, conf)
 
     val streaming = new StreamingContext(spark.sparkContext, Seconds(config.getStreaming.getWindow))
 
@@ -120,10 +101,8 @@ new HBaseContext(sc, conf)
       "bootstrap.servers" -> servers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
-"enable.auto.commit" -> "false",
       "auto.offset.reset" -> "earliest",
       //"auto.offset.reset" -> "latest",
-      //"group.id" -> "dashboard",
       "group.id" -> "test",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
@@ -155,35 +134,17 @@ new HBaseContext(sc, conf)
     // just alias for simplicity
     type Record = ConsumerRecord[String, String]
 
-println("-----------------------KONO--------------------")
     stream.foreachRDD((rdd: RDD[Record]) => {
 
-println("-----------------------KONO foreachRDD --------------------")
-for (row <- rdd) {
-//println("-----------------------KONO--------------------")
-println(row.timestamp())
-println(row.value())
-
-}
       // convert string to PoJo and generate rows as tuple group
       val pairs = rdd
         .map(row => (row.timestamp(), jsonDecode(row.value())))
         .map(row => (row._2.getType.name(), (1, row._2.getValue, row._1)))
 
-println("-----------------------PAIR--------------------")
-for (pair <- pairs) {
-println(pair)
-}
-val newContact = ContactRecord("1234567890", "40 Ellis St.", "674-555-0110", "John Jackson","230-555-0194")
-
-//var newData = new Array[ContactRecord](1)
-//newData(0) = newContact
 
 val sqlContext= new org.apache.spark.sql.SQLContext(sc)
 import sqlContext.implicits._
-//sc.parallelize(newData).toDF.write.options(Map(HBaseTableCatalog.tableCatalog -> catalog, HBaseTableCatalog.newTable -> "5")).format("org.apache.hadoop.hbase.spark").save()
 
-//sc.parallelize(newData).toDF.write.options(Map(HBaseTableCatalog.tableCatalog -> catalog_event, HBaseTableCatalog.newTable -> "5")).format("org.apache.hadoop.hbase.spark").save()
       /**
         * aggregate data by market type
         *
@@ -201,97 +162,20 @@ import sqlContext.implicits._
         .reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2, (y._3 + x._3) / 2))
         .map(f => Row.fromSeq(Seq(f._1, f._2._2 / f._2._1, new Timestamp(f._2._3))))
 
-import java.text.SimpleDateFormat
-val df:SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-println("-----------------------FLATTEN--------------------")
-println(flatten.count())
-var newData = new Array[EventRecord](flatten.count().toInt)
-
-var newDataList = List.empty[EventRecord]
-
-var i: Int = 0
-println(flatten)
-for (pair <- flatten) {
-println(pair)
-println(pair(0))
-println(pair(1))
-println(pair(2))
-println(pair(0).asInstanceOf[String])
-println(pair(1).toString)
-println(df.format(pair(2).asInstanceOf[Timestamp]))
-val newEventTest = EventRecord("test-key","test-keymarket","test-keyrate")
-println(newEventTest)
-
-val time_key:String = df.format(pair(2).asInstanceOf[Timestamp])
-val market:String = pair(0).asInstanceOf[String]
-val rate:String = pair(1).toString
-val newEvent = EventRecord(time_key,market,rate)
-//val newEvent = EventRecord(df.format(pair(2).asInstanceOf[Timestamp]),pair(0).asInstanceOf[String],pair(1).toString)
-
-println(i)
-println(newEvent)
-
-//newData(i) = newEvent
-//newData(i) = newEvent
-newData.update(i, newEvent)
-
-newDataList :+= newEvent
-println("check LIST")
-newDataList.foreach(println)
-
-println("newData(i)")
-println(newData(i))
-i += 1
-println("check")
-newData.foreach(println)
-}
+      // convert to HBase schema
+      val df:SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 
       val eventRDD = flatten
         .map(pair => EventRecord(df.format(pair(2).asInstanceOf[Timestamp]),pair(0).asInstanceOf[String],pair(1).toString))
       val events: Array[EventRecord] = eventRDD.collect()
-println("check EVENTS")
-events.foreach(println)
 
-// LOOP END CHECK THE ARRAY
-/**
-println("new data")
-println(flatten.count())
-println(newData.length)
-val newEventTestA = EventRecord("test-key","test-keymarket","test-keyrate")
-newData(0) =  newEventTestA
-for (data <- newData) {
-println(data)
-}
-println("check again")
-newData.foreach(println)
-**/
 
-////////////////////////////// HBASE INSERT
-if (flatten.count() > 0) {
-println("hbase insert")
-println(newData)
-
-var newDataTest = new Array[EventRecord](1)
-val newEventTest = EventRecord("2020-09-18T02:27:24.630+0000","oceania","454.95926")
-newDataTest(0) = newEventTest
-
-sc.parallelize(events).toDF.write.options(Map(HBaseTableCatalog.tableCatalog -> catalog_event, HBaseTableCatalog.newTable -> "5")).format("org.apache.hadoop.hbase.spark").save()
-//sc.parallelize(newData).toDF.write.options(Map(HBaseTableCatalog.tableCatalog -> catalog_event, HBaseTableCatalog.newTable -> "5")).format("org.apache.hadoop.hbase.spark").save()
-}
-////////////////////////////// HBASE INSERT
-/**
-      // create sql context from active spark context
-      val sql = new SQLContext(flatten.sparkContext)
-
-      // write aggregated results to database
-      // only one partition required for better visualisation,
-      // better to look at https://goo.gl/iBdNDl
-      sql.createDataFrame(flatten, schema)
-        .repartition(1)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, table, props)
-**/
+      // insert to HBase
+      if (flatten.count() > 0) {
+        sc.parallelize(events)
+          .toDF.write.options(Map(HBaseTableCatalog.tableCatalog -> catalog_event, HBaseTableCatalog.newTable -> "5"))
+          .format("org.apache.hadoop.hbase.spark").save()
+      }
     })
 
     // create streaming context and submit streaming jobs

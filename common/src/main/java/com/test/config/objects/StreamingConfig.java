@@ -21,6 +21,7 @@ public class StreamingConfig {
     private StreamingDbConfig db;
 
     private int window;
+    private String hbaseConfigPath;
 
     public StreamingDbConfig getDb() {
         return db;
@@ -36,5 +37,13 @@ public class StreamingConfig {
 
     public void setWindow(int window) {
         this.window = window;
+    }
+
+    public String getHbaseConfigPath() {
+        return hbaseConfigPath;
+    }
+
+   public void setHbaseConfigPath(String hbaseConfigPath) {
+        this.hbaseConfigPath = hbaseConfigPath;
     }
 }
