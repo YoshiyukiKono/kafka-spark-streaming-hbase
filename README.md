@@ -1,6 +1,12 @@
-# kafka &middot; spark streaming example
+# Kafka, Spark streaming, and HBase
 
 This is a simple example of the integration of Kafka, Spark Streaming, and HBase.
+
+## Related Projects
+
+### Kafka 
+
+## How to use this project
 
 ### Prerequisites
 
@@ -42,13 +48,37 @@ producer {
 }
 ```
 
-### Usage
+### HBase Preperation
 
-Start the Spark streaming service and it'll process events from Kafka topic to HBase,
-
-```bash
-spark-submit --master local[*]  --driver-java-options "-Dconfig=./config/common.conf -Dlog4j.configuration=file:log4j.xml" streaming/target/spark-streaming-0.1.jar
+Run HBase shell on your CDH server,
+```
+$ hbase shell
+```
+Create a table (`events`) with a column family (`cf1`),  
+```
+> create 'events', 'cf1'
 ```
 
+### Usage
+
+#### Kafka
+
+Run the Kafka service that you  
+
+#### Spark Streaming
+
+Start the Spark Streaming service and it'll process events from Kafka topic to HBase,
+
+```bash
+$ spark-submit --master local[*]  --driver-java-options "-Dconfig=./config/common.conf -Dlog4j.configuration=file:log4j.xml" streaming/target/spark-streaming-0.1.jar
+```
+
+### Check
+
+You may insert data to the source of the Kafka topic, while the Spark Streaming service is running. You can check the number of the record using `hbase shell`,
+
+```
+> count 'events'
+```
 
 
