@@ -29,7 +29,7 @@ $ mvn clean package -DskipTests
 
 ### Configuration
 
-Edit `config/common.conf`, and change <Your Kafka Server> to the IP address of your Kafka server (It must be a private IP if you use AWS).
+Edit `config/common.conf`, and change `<Your Kafka Server>` to the IP address of your Kafka server (It must be a private IP if you use AWS).
 
 ```
 producer {
