@@ -2,7 +2,12 @@
 
 This is a simple example of the integration of Kafka, Spark Streaming, and HBase.
 
+## Use-Case
+
 ## Related Projects
+
+## Environment
+This project is tested on the [Single Node CDH Cluster](https://github.com/YoshiyukiKono/SingleNodeCDHCluster).
 
 ### Kafka 
 
