@@ -12,7 +12,7 @@ This is a simple example of the integration of Kafka, Spark Streaming, and HBase
 ![Coverage Diagram](images/coverage-2.jpg)
 The rest is covered by [another project](https://github.com/YoshiyukiKono/couchbase_kafka)
 
-(This project itself does not necessarily expect that the data source of Kafka is Couchbase but you can have the entire view for the above technical use-case with these two projects.)
+(This project itself does not necessarily expect that the data source of Kafka is Couchbase but you can have the entire view of the above technical use-case with these two projects.)
 
 ## Environment
 This project is tested on the [Single Node CDH Cluster](https://github.com/YoshiyukiKono/SingleNodeCDHCluster).
