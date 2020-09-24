@@ -12,10 +12,11 @@ This is a simple example of the integration of Kafka, Spark Streaming, and HBase
 ![Coverage Diagram](images/coverage-2.jpg)
 The rest is covered by [another project](https://github.com/YoshiyukiKono/couchbase_kafka)
 
+(This project itself does not necessarily expect that the data source of Kafka is Couchbase but you can have the entire view for the above technical use-case with these two projects.)
+
 ## Environment
 This project is tested on the [Single Node CDH Cluster](https://github.com/YoshiyukiKono/SingleNodeCDHCluster).
 
-### Kafka 
 
 ## How to use this project
 
@@ -35,6 +36,39 @@ Java 1.8 or newer version required because lambda expression used for few cases
 
 - Apache Spark >= 2.0.2
 - HBase = 2.1.0-cdh6.3.2
+
+
+#### Development Environment
+
+Download Maven
+```
+$ curl -OL https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+$ tar -zxvf apache-maven-3.6.3-bin.tar.gz
+$ sudo mv apache-maven-3.6.3 /opt/
+$ cd /opt
+$ sudo su
+$ ln -s /opt/apache-maven-3.6.3/ apache-maven
+```
+Check Java installation path.
+```
+$ dirname $(readlink $(readlink $(which java)))
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64/jre/bin
+```
+Edit `/etc/profile`
+```
+sudo vi /etc/profile
+```
+Add the following items (Please accordingly change the actual pathes for your environment)
+```
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar 
+export PATH=$PATH:/opt/apache-maven/bin
+```
+Apply the settings to the current process.
+```
+source /etc/profile
+```
 
 ### Compile
 
