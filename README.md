@@ -2,7 +2,7 @@
 
 This is a simple example of the integration of Kafka, Spark Streaming, and HBase.
 
-I created this project based on [kafka · spark streaming example](https://github.com/trK54Ylmz/kafka-spark-streaming-example) published the Apache License, Version 2.0
+I created this project based on [kafka · spark streaming example](https://github.com/trK54Ylmz/kafka-spark-streaming-example) published under the Apache License, Version 2.0
 
 ## Concept Overview
 
